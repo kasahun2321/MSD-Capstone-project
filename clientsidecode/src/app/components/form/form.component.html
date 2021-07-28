@@ -1,0 +1,200 @@
+<div class="container">
+  <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+
+    <div class="accountinfo">
+     <div class="row">
+       <div class="col-md-4"></div>
+       <div class="col-md-6"> <h6 > ACH Payment </h6></div>
+       <div class="col-md-2"><i>{{newdate}}</i></div>
+     </div>
+      <div class="row">
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-5"> <label for="first-name">First Name: </label></div>
+        <div class="col-md-7">
+          <input id="underlineinput" type="text" formControlName="firstName"><br>
+          <div Class="alert-danger">
+            <span *ngIf="(fName?.dirty || fName?.touched) && fName?.invalid && fName?.errors?.required">
+              firstname no required </span>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-5">
+          <label for="last-name">Last Name: </label>
+
+        </div>
+        <div class="col-md-7">
+          <input id="underlineinput" type="text" formControlName="lastName">
+          <div Class="alert-danger">
+            <span *ngIf="(lName?.dirty || lName?.touched) && lName?.invalid && lName?.errors?.required">
+              lastname no required </span>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-5"><label for="last-name">Payment Amount $: </label></div>
+        <div class="col-md-7"><input id="underlineinput" type="number" formControlName="amount"></div>
+        <!-- payment Date <p>{{Todaysdate}}</p> -->
+        <div Class="alert-danger">
+        <span *ngIf="(amount?.dirty || amount?.touched) && amount?.errors?.invalidNumber">
+          Value has to be a number.
+        </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <label for="last-name">AccountNumber: </label>
+
+        </div>
+        <div class="col-md-7">
+          <input id="underlineinput" type="text" formControlName="accountNumber">
+          <div Class="alert-danger">
+          <span *ngIf="(Acno?.dirty || Acno?.touched) && Acno?.invalid && Acno?.errors?.required">
+            Account no required </span>
+            </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <label for="last-name">RoutingNumber: </label>
+        </div>
+        <div class="col-md-7">
+          <input id="underlineinput" type="text" formControlName="routingNumber">
+          <div Class="alert-danger">
+          <span *ngIf="(Rno?.dirty || Rno?.touched) && Rno?.invalid && Rno?.errors?.required">
+            Routing number required </span></div>
+        </div>
+
+      </div>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div class="selectoption">
+      <div class="row" id="acctowner">
+
+        <div class="col-md-4">
+          AccountType:
+          <select name="" id="" formControlName="accountType" placeholder="select account type">
+            <option disabled selected value> -- Select account - -- </option>
+            <option value="saving">Saving</option>
+            <option value="checking">Checking</option>
+          </select>
+        </div>
+<div class="col-md-2"></div>
+<!-- <mat-divider></mat-divider>
+<mat-divider></mat-divider>
+<mat-divider></mat-divider> -->
+        <div class="col-md-4">
+          OwnershipType:
+          <select name="" id="" formControlName="ownershipType" placeholder="select owner">
+            <option disabled selected value> -- Select company -- </option>
+            <option value="personal">personal</option>
+            <option value="bussiness">Busines</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+
+    <h2>Billing-Address</h2>
+
+    <div class="billingaddress">
+      <div formGroupName="billingAddress" id="">
+        <div class="row">
+          <div class="col-md-5">
+            <label for="street">StreetAddress: </label>
+          </div>
+          <div class="col-md-7">
+            <input id="underlineinput" type="text" formControlName="streetAddress">
+            <span  Class="alert-danger" *ngIf="(streatadd?.dirty || streatadd?.touched) && streatadd?.invalid && streatadd?.errors?.required">
+              streetAddress is required.
+            </span>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="city">ExtendedAddress: </label>
+
+          </div>
+          <div class="col-md-7">
+            <input id="underlineinput" type="text" formControlName="extendedAddress">
+            <span Class="alert-danger"
+              *ngIf="(extaddress?.dirty || extaddress?.touched) && extaddress?.invalid && extaddress?.errors?.required">
+              ExtendedAddres is required.
+            </span>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="state">Locality: </label>
+
+          </div>
+          <div class="col-md-7">
+            <input id="underlineinput" type="text" formControlName="locality">
+            <span  Class="alert-danger" *ngIf="(locality?.dirty || locality?.touched) && locality?.invalid && locality?.errors?.required">
+              Locality is required.
+            </span>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="zip">Region: </label>
+
+          </div>
+          <div class="col-md-7">
+            <input id="underlineinput" type="text" formControlName="region">
+            <span Class="alert-danger"  *ngIf="(region?.dirty || region?.touched) && region?.invalid && region?.errors?.required">
+              region is required.
+            </span>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="zip">PostalCode: </label>
+
+          </div>
+          <div class="col-md-7">
+            <input id="underlineinput" type="text" formControlName="postalCode">
+            <span Class="alert-danger"
+              *ngIf="(postalcode?.dirty || postalcode?.touched) && postalcode?.invalid && postalcode?.errors?.required">
+              postalcode is required.
+            </span>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="zip">CountryCodeAlpha2: </label>
+          </div>
+          <div class="col-md-7">
+            <input id="underlineinput" type="text" formControlName="countryCodeAlpha2">
+            <span Class="alert-danger"
+              *ngIf="(countrycode?.dirty || countrycode?.touched) && countrycode?.invalid && countrycode?.errors?.required">
+              countrycode is required.
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div><br>
+
+    <div class="aggrement">
+      <label>Click to Agree to pay and information you provided are correct</label>
+      <input class="checkbox" type="checkbox" placeholder="" [checked]="truefalseagree" formControlName="checkboxx"><br>
+      <mat-divider></mat-divider>
+
+
+    </div><br>
+    <button type="submit" [disabled]="!myform.valid" class="btn btn-info" id="paybutton">pay</button>
+    <button (click)="clearform()" type="button" class="btn btn-warning" id="clearbtn">clear</button>
+  </form><br>
+</div>
+<!-- <mat-card>Simple card<img mat-card-sm-image src="https://th.bing.com/th/id/OIP.n2WAF56wviRL_IaENlPlTwHaE7?pid=ImgDet&rs=1"> </mat-card> -->

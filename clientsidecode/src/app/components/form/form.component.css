@@ -1,0 +1,59 @@
+body {
+	width: 80%;
+}
+.container {
+    margin: auto;
+	width: 70%;
+}
+.checkbox {
+    width:20px;height:20px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+#underlineinput {
+	width: 60%;
+	border: none;
+	border-bottom: 1px solid #1890ff;
+	padding: 5px 10px;
+	outline: none;
+}
+.accountinfo{
+    border: 1px solid gray;
+}
+.selectoption{
+    border: 1px solid red;
+
+}
+.billingaddress{
+    border: 1px solid yellow;
+}
+label {
+	margin-top: 15px;
+	/* margin-left: 80%*/;
+	text-align: right; 
+}
+.aggrement{
+    border: 1px solid red;
+}
+#selectiolabel{
+
+}
+#selectiolabel2{
+
+}
+#acctowner{
+    /* margin: auto; */
+    margin-top: 10px;
+    margin-left: 30%;
+}
+#paybutton{
+    width: 45%;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+#clearbtn{
+    width: 45%;
+    border-radius: 20px;
+    margin-left: 10px;
+}
