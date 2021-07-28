@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
 	selector: 'app-form',
 	templateUrl: './form.component.html',
-	styleUrls: [ './form.component.css' ]
+	styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
 	token: any;
@@ -16,40 +16,40 @@ export class FormComponent implements OnInit {
 	transactioID: any = '';
 	clientInstance: any;
 	bankinstance: any = '';
-	counter :number= 0;
-	 dateObj = new Date();
- month = this.dateObj.getUTCMonth() + 1;
- day = this.dateObj.getUTCDate();
- year = this.dateObj.getUTCFullYear();
-newdate =   this.month + "/" + this.day+ "/"+this.year
+	counter: number = 0;
+	dateObj = new Date();
+	month = this.dateObj.getUTCMonth() + 1;
+	day = this.dateObj.getUTCDate();
+	year = this.dateObj.getUTCFullYear();
+	newdate = this.month + "/" + this.day + "/" + this.year
 	truefalseagree = false;
 
 	constructor(private route: ActivatedRoute,
 		private router: Router,
 		private service: HttpserviceService) { }
+
 	// when the form load set the token 
 	//first step of ACH transaction
-ngOnInit() {
-console.log("ng on init")
-this.service.intializetoken().subscribe((result: any) => {
-	console.log('the service yemexaa', result);
-	this.token = result.data;
-	localStorage.setItem('token', result.data);
-});
-
-}
+	ngOnInit() {
+		console.log("ng on init")
+		this.service.intializetoken().subscribe((result: any) => {
+			console.log('the service yemexaa', result);
+			this.token = result.data;
+			localStorage.setItem('token', result.data);
+		});
+	}
 
 
 	myform: FormGroup = new FormGroup({
 		firstName: new FormControl('', Validators.required),
 		lastName: new FormControl('', Validators.required),
-		checkboxx: new FormControl('', [ Validators.required ]),
-		accountNumber: new FormControl('1000000000', [ Validators.required, Validators.minLength(5) ]),
-		amount: new FormControl('', [ Validators.required ]),
-		routingNumber: new FormControl('011000015', [ Validators.required, Validators.minLength(5) ]),
+		checkboxx: new FormControl('', [Validators.required]),
+		accountNumber: new FormControl('1000000000', [Validators.required, Validators.minLength(5)]),
+		amount: new FormControl('', [Validators.required]),
+		routingNumber: new FormControl('011000015', [Validators.required, Validators.minLength(5)]),
 		accountType: new FormControl('', Validators.required),
 		ownershipType: new FormControl('', Validators.required),
-		
+
 		billingAddress: new FormGroup({
 			streetAddress: new FormControl('1 E Main St', Validators.required),
 			extendedAddress: new FormControl('Suite 403', Validators.required),
@@ -91,7 +91,7 @@ this.service.intializetoken().subscribe((result: any) => {
 		return this.myform.get('billingAddress')?.get('postalCode');
 	}
 	get countrycode() {
-		return this.myform.get('billingAddress')?.	get('countryCodeAlpha2');
+		return this.myform.get('billingAddress')?.get('countryCodeAlpha2');
 	}
 
 
@@ -100,13 +100,14 @@ this.service.intializetoken().subscribe((result: any) => {
 	onSubmit() {
 		if (this.myform.value.checkboxx) {
 			console.log(this.myform.value);
+
 			//the submit button trigger this function
 			this.createBraintree();
 		} else {
 			window.alert('please mark the checkbox to continue');
 		}
 	}
-	
+
 
 	createBraintree() {
 
@@ -116,14 +117,12 @@ this.service.intializetoken().subscribe((result: any) => {
 			},
 			(clientErr: any, clientInstance: any) => {
 				if (clientErr) {
-					console.log(clientInstance);
 					console.error('There was an error creating the Client.');
-
-					window.alert("i think ur token is not genratede check the form data")
+					window.alert("i think ur token is not generatede check the form data")
 					throw clientErr;
 				}
+				console.log("client instance", clientInstance);
 
-				console.log(clientInstance);
 
 				braintree.usBankAccount.create(
 					{
@@ -134,7 +133,7 @@ this.service.intializetoken().subscribe((result: any) => {
 							this.bankinstance = usBankAccountInstance;
 							throw usBankAccountErr;
 						}
-						console.log(usBankAccountInstance);
+						console.log("banck instance",usBankAccountInstance);
 						// Use the usBankAccountInstance here.
 						var bankDetails: any = {
 							accountNumber: this.myform.value.accountNumber,
@@ -142,30 +141,30 @@ this.service.intializetoken().subscribe((result: any) => {
 							accountType: this.myform.value.accountType,
 							ownershipType: this.myform.value.ownershipType,
 							checkboxx: this.myform.value.checkboxx,
-							firstName : this.myform.value.firstName,
+							firstName: this.myform.value.firstName,
 							lastName: this.myform.value.lastName,
 							amount: this.myform.value.amount,
-							
+
 							billingAddress: {
-								streetAddress:  this.myform.value.billingAddress.streetAddress,
-								extendedAddress:  this.myform.value.billingAddress.extendedAddress,
+								streetAddress: this.myform.value.billingAddress.streetAddress,
+								extendedAddress: this.myform.value.billingAddress.extendedAddress,
 								locality: this.myform.value.billingAddress.locality,
 								region: this.myform.value.billingAddress.region,
-								postalCode:this.myform.value.billingAddress.postalCode,
+								postalCode: this.myform.value.billingAddress.postalCode,
 								countryCodeAlpha2: this.myform.value.billingAddress.countryCodeAlpha2
 							}
-						
+
 						};
-					
+
 
 
 						usBankAccountInstance.tokenize(
 							{
 								bankDetails: bankDetails, // or bankLogin: bankLogin
 								mandateText:
-									`By clicking [name]
-									I authorize Braintree, a service of
-									 PayPal, on behalf of GedebKasahun company
+									`By clicking the aggrement 
+									I  authorize Braintree, a service of
+									 ACH, on behalf of  company SOFUMER
 									  (i) to verify my bank account information using
 									   bank information and consumer reports and (ii)
 									   to debit my bank account.`
@@ -174,9 +173,9 @@ this.service.intializetoken().subscribe((result: any) => {
 								if (tokenizeErr) {
 									console.log("check ur form", tokenizeErr);
 									window.alert("the information you provided may not valid check account type inf")
-									
+
 									throw tokenizeErr;
-									
+
 								} else {
 									console.log(tokenizedPayload.nonce);
 									//call the second end point to get the nouce token
@@ -194,23 +193,22 @@ this.service.intializetoken().subscribe((result: any) => {
 
 	clearform() {
 		console.log("form value inside  clear function", this, this.myform.value)
-this.myform.reset()
+		this.myform.reset()
 	}
-	
+
 	sendBraintree(data: any) {
-		this.counter=this.counter+1
+		this.counter = this.counter + 1
 		this.service.createbraintreenonce(data).subscribe((result: any) => {
 			console.log('data from serverby kas service:', result.id);
 			this.transactioID = result.id;
 			if (result.id !== undefined) {
-				if (this.counter > 1)
-				{
+				if (this.counter > 1) {
 					console.log("second  time micro check");
 					window.alert("no micro cehck requeried")
-					this.router.navigate([ '/print' ]);
+					this.router.navigate(['/print']);
 				}
 				else {
-					this.router.navigate([ '/microchecking' ]);
+					this.router.navigate(['/microchecking']);
 				}
 			} else {
 				window.alert('please check provided infomation ');

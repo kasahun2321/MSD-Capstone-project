@@ -15,14 +15,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+
 let routes: Routes = [
-	{ path: 'about', component: AboutComponent },
 	{ path: 'form', component: FormComponent },
 	{ path: 'items', component: ShowitemsComponent },
 	{ path: 'print', component: PrintrecieptComponent },
+	{ path: 'microchecking', component: ConfromMicrocheckformComponent },
+	{ path: 'about',  component: AboutComponent },
 
-	{ path: 'microchecking', component: ConfromMicrocheckformComponent }
 ];
 @NgModule({
 	declarations: [

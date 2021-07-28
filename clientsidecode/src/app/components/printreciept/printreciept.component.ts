@@ -15,11 +15,16 @@ export class PrintrecieptComponent implements OnInit {
   month = this.dateObj.getUTCMonth() + 1;
   day = this.dateObj.getUTCDate();
   year = this.dateObj.getUTCFullYear();
- newdate =   this.month + "/" + this.day+ "/"+this.year
+  newdate = this.month + "/" + this.day + "/" + this.year
+  tranacationID: any;
+  billingAddress: any;
   ngOnInit(): void {
     this.service.printreciept().subscribe((data: any) => {
-      console.log("print yemohone",data)
-      this.print=data.data.userdetail
+      // console.log("print yemohone", data);
+      console.log("data", data.data.userdetail)
+      this.tranacationID=data.tranacatioID
+      this.print = data.data.userdetail;
+      this.billingAddress=data.data.userdetail.billingAddress
     })
   }
   anotherpayment() {

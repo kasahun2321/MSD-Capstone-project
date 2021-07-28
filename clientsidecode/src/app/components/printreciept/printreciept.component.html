@@ -1,3 +1,4 @@
+<div></div>
 <div>
    <div class="container bootdey" id="mytodosItemsId">
       <h3>Transction reciept</h3>
@@ -6,13 +7,21 @@
             <div class="widget-box">
                <div class="widget-header widget-header-large">
                   <div class="widget-toolbar no-border invoice-info">
-                     <span class="invoice-info-label">tranasction ID::</span>
-                     <span class="red">{{print.tranacationID}}</span>
 
-                     <br>
-                     <span class="invoice-info-label">Date:</span>
-                     <span class="blue">{{newdate}}</span>
+
+                     <div class="row">
+                        <div class="col-md-8">
+                           <span class="invoice-info-label">tranasction ID::</span>
+                           <span class="red">{{tranacationID}}</span>
+                        </div>
+                        <div class="col-md-4">
+                           <span class="invoice-info-label">Date:</span>
+                           <span class="blue">{{newdate}}</span>
+                        </div>
+                     </div>
+
                   </div>
+                  <mat-divider></mat-divider>
 
                   <div class="widget-toolbar hidden-480">
                      <a href="#">
@@ -33,23 +42,25 @@
 
                            <div>
                               <ul class="list-unstyled spaced">
-
                                  <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>Street, City
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Company:SOFUMER LLC
+                                 </li>
+                                 <li>
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Street:308 W broadway, City:Fairfield
                                  </li>
 
                                  <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>Zip Code
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Zip Code:52556
                                  </li>
 
                                  <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>State, Country
+                                    <i class="ace-icon fa fa-caret-right blue"></i>State:IOWA, Country:US
                                  </li>
 
                                  <li>
                                     <i class="ace-icon fa fa-caret-right blue"></i>
                                     Phone:
-                                    <b class="red">111-111-111</b>
+                                    <b class="red">1ab-1xc-1xyz</b>
                                  </li>
 
                                  <li class="divider"></li>
@@ -72,15 +83,19 @@
                                     Firstname:: {{print.firstName}} -----lastname::{{print.lastName}}
                                  </li>
                                  <li>
-                                    <i class="ace-icon fa fa-caret-right green"></i>Street:, City
+                                    <i
+                                       class="ace-icon fa fa-caret-right green"></i>Street:{{billingAddress.streetAddress}},
+                                    City:{{billingAddress.locality}}
                                  </li>
 
-                                 <li>
-                                    <i class="ace-icon fa fa-caret-right green"></i>Zip Code
-                                 </li>
 
                                  <li>
-                                    <i class="ace-icon fa fa-caret-right green"></i>State, Country
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Zip
+                                    Code:{{billingAddress.postalCode}}
+                                 </li>
+                                 <li>
+                                    <i class="ace-icon fa fa-caret-right green"></i>State,
+                                    {{billingAddress.region}},Country:{{billingAddress.countryCodeAlpha2}}
                                  </li>
 
                                  <li class="divider"></li>
@@ -102,7 +117,7 @@
 
                                  <th class="hidden-xs">Account Number</th>
                                  <th class="hidden-480">Amount in $</th>
-                                
+
                               </tr>
                            </thead>
 
@@ -115,7 +130,7 @@
                                     {{print.accountNumber}}
                                  </td>
                                  <td class="hidden-480"> -{{print.amount}} </td>
-                                
+
                               </tr>
                            </tbody>
                         </table>
@@ -127,15 +142,16 @@
                         <div class="col-md-4">
 
                         </div>
-                      <b>  Thank you for choosing SOFUMER</b>
+                        <b> Thank you for choosing SOFUMER</b>
                      </div>
-                     <button printSectionId="mytodosItemsId"  ngxPrint class="btn btn-success btn-block">Print</button>
-                     <button  (click)="anotherpayment()"class="btn btn-success btn-block">Another Payment</button>
+                   
 
-                
+
 
 
                   </div>
-               </div>
+               </div><br><br><br><br>
+               <button printSectionId="mytodosItemsId" ngxPrint class="btn btn-info btn-block">Print</button>
+               <button (click)="anotherpayment()" class="btn btn-info btn-block">Another Payment</button>
             </div>
          </div>

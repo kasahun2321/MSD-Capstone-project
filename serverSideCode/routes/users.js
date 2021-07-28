@@ -1,8 +1,6 @@
-const { ObjectID } = require("bson");
 var express = require("express");
 var router = express.Router();
 const env = require("dotenv").config();
-const collection = process.env.userTable;
 var braintree = require("braintree");
 
 
@@ -12,6 +10,8 @@ const gateway = new braintree.BraintreeGateway({
   publicKey: "t68xfnpfnc24wc4b",
   privateKey: "208a47f672ee3a53b0d100e36d8273f4"
 });
+
+
 let verifcationID = '';
 let volttoken = ''
 let voltnance = ''
@@ -35,9 +35,9 @@ let info;
 router.post('/confirmBraintree', (req, res) => {
   const nonceFromTheClient = req.body.noncetoken
   info = req.body
-  amount = parseFloat(req.body.userdetail.amount)
-  console.log("kasakaskakak nonce", req.body.userdetail)
-  console.log("kasakaskakak nonce", req.body.userdetail.firstName, req.body.userdetail.lastName, req.body.amount);
+  amount = parseFloat(req.body.userdetail.amount);
+  console.log("check nonce", req.body.userdetail)
+
   gateway.customer.create({
     firstName: req.body.userdetail.firstName,
     lastName: req.body.userdetail.lastName,
@@ -81,11 +81,12 @@ router.post('/confirmBraintree', (req, res) => {
 
 
 router.post('/transferbalance', (req, res) => {
-  console.log("id from body", req.body, "id from vairable", verifcationID, "gebi yemihon birr", amount)
+  console.log("id from body", req.body, "id from vairable", verifcationID, "amount", amount)
   // res.json({status:"good to go",id:verifcationID})
+  //x is first micro transfer amount
   let x = parseFloat(req.body.firstBalance)
+  //y Second Micro transfer amount
   let y = parseFloat(req.body.secondBalance)
-  console.log("x", x == 11, "y", y == 11)
 
   gateway.usBankAccountVerification.confirmMicroTransferAmounts(
     verifcationID, [x, y],
@@ -96,20 +97,15 @@ router.post('/transferbalance', (req, res) => {
           (err, verification) => {
             const status = verification.status;
 
-            // if (status == result.usBankAccount.verifications[0].status) {
             if (status == "verified") {
               // ready for transacting
               gateway.transaction.sale({
                 amount: amount,
                 paymentMethodToken: volttoken,
-                // deviceData: deviceDataFromTheClient,
                 options: {
                   submitForSettlement: true
                 }
               }, (err, result) => {
-                // if (err) {
-                //   res.json({ status: " purchase incomeplet", err })
-                // }
                 if (result.success) {
                   // See result.transaction for details
                   res.json({ status: "success", result })
@@ -164,6 +160,8 @@ router.post('/webhookurl', (req, res) => {
       res.status(200).send();
     });
 })
+
+
 router.get('/receipt', (req, res) => {
 
   res.json({ data: info, tranacatioID: verifcationID, })
