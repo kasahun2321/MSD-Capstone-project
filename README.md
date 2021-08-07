@@ -18,7 +18,7 @@ It is automated version of check for small business company
 
 ## Setup
 to run this project install npm in your local machine 
-clone the project and cd front end and server side code independently
+clone the project and cd to front end and server side code independently
 * $ cd to clientside 
 * $ npm install
 * $ ng serve
